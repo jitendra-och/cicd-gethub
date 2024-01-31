@@ -13,4 +13,5 @@ jobs:
       run: env | sort
     - name: Docker command
       run: |
-        sf version
+        ls /usr/bin/
+        ls /usr/local/bin/
