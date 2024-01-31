@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Partner_Level__c</fullName>
     <externalId>false</externalId>
-    <label>Partner Level</label>
+    <label>Partner Levels</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <type>Picklist</type>
