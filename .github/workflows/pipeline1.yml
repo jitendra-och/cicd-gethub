@@ -10,11 +10,14 @@ jobs:
     steps:
     - name: Check out source code
       uses: actions/checkout@v2
-    - name: configure devhub org
+
+    - name: Configure devhub org
       run: |
         echo ${{ secrets.DEVHUB_SFDX_URL}} > ./SFDX_URL_STORE.txt
         sf org login sfdx-url -f ./SFDX_URL_STORE.txt -a devhub -d
+
     - name: Creating a new scratch org ...
       run: sf org create scratch -d -f config/project-scratch-def.json --duration-days 1 --alias sOrg31Jan24
+
     - name: Deleting the scratch org
       run: sf org delete scratch -o sOrg31Jan24 -p

@@ -1,0 +1,17 @@
+name: Deployment to SIT
+
+on:
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
+
+jobs:
+  job1:
+    name: Deploying to the SIT org
+    runs-on: ubuntu-latest
+    container: salesforce/cli:latest-rc-slim
+    steps:
+      - name: Starting deployment to SIT ...
+        run: echo "Deployment process to SIT will be executed here."
