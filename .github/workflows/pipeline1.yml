@@ -13,4 +13,5 @@ jobs:
       run: env | sort
     - name: Docker command
       run: |
-        docker start salesforce/cli:latest-rc-slim
+        docker run -i salesforce/cli:latest-rc-slim
+        docker exec -i /bin/bash sf version
