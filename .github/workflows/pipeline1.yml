@@ -8,10 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     container: salesforce/cli:latest-rc-slim
     steps:
-    - name: Step one
+    - name: Check out source code
       uses: actions/checkout@v2
-    - name: Step two
-      run: env | sort
-    - name: Docker command
-      run: |
-        sfdx --version
+    - name: Create a scratch org
+      run: sf org create scratch --definition-file config/project-scratch-def.json --alias sOrg31Jan24
