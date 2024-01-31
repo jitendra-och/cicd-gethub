@@ -10,5 +10,9 @@ jobs:
     steps:
     - name: Check out source code
       uses: actions/checkout@v2
+    - name: configure devhub org
+      run: |
+        echo ${{ secrets.DEVHUB_SFDX_URL}} > ./SFDX_URL_STORE.txt
+        sf org login sfdx-url -f ./SFDX_URL_STORE.txt -a devhub -d
     - name: Create a scratch org
-      run: sf org create scratch --definition-file config/project-scratch-def.json --alias sOrg31Jan24 --target-dev-hub jitendras@lightning.com
+      run: sf org create scratch -d -f config/project-scratch-def.json --duration-days 1 --alias sOrg31Jan24
