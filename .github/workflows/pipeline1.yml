@@ -6,6 +6,7 @@ jobs:
   job1:
     name: First job
     runs-on: ubuntu-latest
+    container: salesforce/cli:latest-rc-slim
     steps:
     - name: Step one
       uses: actions/checkout@v2
@@ -13,5 +14,4 @@ jobs:
       run: env | sort
     - name: Docker command
       run: |
-        docker run -i salesforce/cli:latest-rc-slim
-        docker exec -i bin/bash sf version
+        sfdx --version
