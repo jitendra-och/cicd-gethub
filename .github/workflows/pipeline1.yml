@@ -14,4 +14,4 @@ jobs:
     - name: Docker command
       run: |
         docker run -i salesforce/cli:latest-rc-slim
-        sf version
+        docker sf version
