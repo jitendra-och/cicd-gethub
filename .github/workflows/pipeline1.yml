@@ -12,6 +12,7 @@ jobs:
     - name: Step two
       run: env | sort
     - name: Docker command
-      run: docker pull salesforce/cli:latest-rc-slim
-      run: docker run -it salesforce/cli:latest-rc-slim
-      run: sf version
+      run: |
+        docker pull salesforce/cli:latest-rc-slim
+        docker run -it salesforce/cli:latest-rc-slim
+        sf version
