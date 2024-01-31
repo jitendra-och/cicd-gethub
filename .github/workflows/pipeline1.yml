@@ -11,4 +11,4 @@ jobs:
     - name: Check out source code
       uses: actions/checkout@v2
     - name: Create a scratch org
-      run: sf org create scratch --definition-file config/project-scratch-def.json --alias sOrg31Jan24
+      run: sf org create scratch --definition-file config/project-scratch-def.json --alias sOrg31Jan24 --target-dev-hub jitendras@lightning.com
