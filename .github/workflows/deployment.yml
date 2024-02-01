@@ -21,8 +21,8 @@ jobs:
           SFDX_JWT_KEY: ${{ secrets.SFDX_JWT_KEY }}
           SFDX_CLIENT_ID: ${{ secrets.SFDX_CLIENT_ID }}
         run: |
-          echo ${{ secrets.SFDX_JWT_KEY }} > server.key
-          sf org login jwt --client-id ${{ secrets.SFDX_CLIENT_ID }} --jwt-key-file server.key --username jitendras@lwr.com --alias sitOrg --instance-url=https://login.salesforce.com
+          echo "${SFDX_JWT_KEY}" > server.key
+          sf org login jwt --client-id "${SFDX_CLIENT_ID}" --jwt-key-file server.key --username jitendras@lwr.com --alias sitOrg --instance-url=https://login.salesforce.com
           rm server.key
           sf project deploy start -x manifest/package.xml --target-org sitOrg
           echo Deployment completed successfully
