@@ -20,7 +20,7 @@ jobs:
       run: sf org create scratch -d -f config/project-scratch-def.json --duration-days 1 --alias sOrg31Jan24
 
     - name: Deploying all source code to the scratch org
-      run: sf project deploy start --source-dir force-app/** --target-org sOrg31Jan24 --test-level RunAllTestsInOrg
+      run: sf project deploy start -x manifest/package.xml --target-org sOrg31Jan24 --test-level RunAllTestsInOrg
 
     - name: Deleting the scratch org
       run: sf org delete scratch -o sOrg31Jan24 -p

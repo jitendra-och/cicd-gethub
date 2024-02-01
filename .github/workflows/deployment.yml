@@ -15,3 +15,13 @@ jobs:
     steps:
       - name: Starting deployment to SIT ...
         run: echo "Deployment process to SIT will be executed here."
+
+      - name: SFDX Auth
+        env:
+          SFDX_JWT_KEY: ${{ secrets.SFDX_JWT_KEY }}
+          SFDX_CLIENT_ID: ${{ secrets.SFDX_CLIENT_ID }}
+        run: |
+          echo "${SFDX_JWT_KEY}" > server.key
+          sf org login jwt --client-id "${SFDX_CLIENT_ID}" --jwt-key-file server.key --username jitendras@lwr.com --instance-url https://lwrcom-d-dev-ed.lightning.force.com --alias sitOrg
+          sf project deploy start -x manifest/package.xml --target-org sitOrg
+          echo Deployment completed successfully
