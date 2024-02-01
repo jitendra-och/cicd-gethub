@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     container: salesforce/cli:latest-rc-slim
     steps:
+      - name: Check out source code
+        uses: actions/checkout@v3
+
       - name: Starting deployment to SIT ...
         run: echo "Deployment process to SIT will be executed here."
 
