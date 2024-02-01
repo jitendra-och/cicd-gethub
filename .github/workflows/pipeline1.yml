@@ -13,7 +13,7 @@ jobs:
 
     - name: Configure devhub org
       run: |
-        echo ${{ secrets.DEVHUB_SFDX_URL}} > ./SFDX_URL_STORE.txt
+        echo ${{ secrets.DEVHUB_SFDX_URL }} > ./SFDX_URL_STORE.txt
         sf org login sfdx-url -f ./SFDX_URL_STORE.txt -a devhub -d
 
     - name: Creating a new scratch org ...
