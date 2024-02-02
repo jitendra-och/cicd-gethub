@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install sgd plugin
-      run: sf plugins install sfdx-git-delta -f
+      run: sf plugins install sfdx-git-delta -f -s
       
     - name: Check if there is some destructive changes
       run: |
