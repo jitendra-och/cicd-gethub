@@ -23,20 +23,20 @@ jobs:
           echo "Destructives changes file does NOT exist"
         fi
 
-    - name: Check the current branch
-      id: current-branch-id
-      run: |
-        echo "CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`" >> $GITHUB_OUTPUT
-        CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
-        if [ $CURRENT_BRANCH = "master" ]; then
-          echo "Deploys from the branch: ${CURRENT_BRANCH} "
-        else
-          echo "Deploys from the current branch"
-        fi
+    # - name: Check the current branch
+    #   id: current-branch-id
+    #   run: |
+    #     echo "CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`" >> $GITHUB_OUTPUT
+    #     CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+    #     if [ $CURRENT_BRANCH = "master" ]; then
+    #       echo "Deploys from the branch: ${CURRENT_BRANCH} "
+    #     else
+    #       echo "Deploys from the current branch"
+    #     fi
 
-    - name: Check the current branch in the next step
-      run: |
-        echo "The current branch: ${{ steps.current-branch-id.outputs.CURRENT_BRANCH }}"
+    # - name: Check the current branch in the next step
+    #   run: |
+    #     echo "The current branch: ${{ steps.current-branch-id.outputs.CURRENT_BRANCH }}"
 
     - name: Check if sfdx-git-delta plugin is installed
       run: |
