@@ -11,16 +11,16 @@ jobs:
     - name: Check out source code
       uses: actions/checkout@v2
 
-    - name: Configure devhub org
-      run: |
-        echo ${{ secrets.DEVHUB_SFDX_URL }} > ./SFDX_URL_STORE.txt
-        sf org login sfdx-url -f ./SFDX_URL_STORE.txt -a devhub -d
+#    - name: Configure devhub org
+#      run: |
+#        echo ${{ secrets.DEVHUB_SFDX_URL }} > ./SFDX_URL_STORE.txt
+#        sf org login sfdx-url -f ./SFDX_URL_STORE.txt -a devhub -d
 
-    - name: Creating a new scratch org ...
-      run: sf org create scratch -d -f config/project-scratch-def.json --duration-days 1 --alias sOrg31Jan24
+#    - name: Creating a new scratch org ...
+#      run: sf org create scratch -d -f config/project-scratch-def.json --duration-days 1 --alias sOrg31Jan24
 
-    - name: Deploying all source code to the scratch org
-      run: sf project deploy start -x manifest/package.xml --target-org sOrg31Jan24 --test-level RunAllTestsInOrg
+#    - name: Deploying all source code to the scratch org
+#      run: sf project deploy start -x manifest/package.xml --target-org sOrg31Jan24 --test-level RunAllTestsInOrg
 
-    - name: Deleting the scratch org
-      run: sf org delete scratch -o sOrg31Jan24 -p
+#    - name: Deleting the scratch org
+#      run: sf org delete scratch -o sOrg31Jan24 -p
