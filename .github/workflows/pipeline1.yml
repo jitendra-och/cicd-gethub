@@ -6,7 +6,7 @@ jobs:
   job1:
     name: First job
     runs-on: ubuntu-latest
-    container: salesforce/cli:latest-rc-slim
+#    container: salesforce/cli:latest-rc-slim
     steps:
     - name: Check out source code
       uses: actions/checkout@v2
@@ -14,10 +14,10 @@ jobs:
     - name: Check if there is some destructive changes
       run: |
         echo ${SHELL}
-        if [ -f destructiveChanges/cpd/destructiveChangesPost.xml ]; then
-          echo Destructives changes file exists
+        if [ -f destructiveChanges/cpd/destructiveChangesPost1.xml ]; then
+          echo "Destructives changes file exists"
         else
-          echo Destructives changes file does NOT exist
+          echo "Destructives changes file does NOT exist"
         fi
 
 #    - name: Configure devhub org
