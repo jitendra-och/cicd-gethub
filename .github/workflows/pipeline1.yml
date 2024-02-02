@@ -46,7 +46,7 @@ jobs:
         if [ -d delta-output ]; then
           echo "Delta output will be stored in directory: delta-output"
           git config --global --add safe.directory /__w/cicd-gethub/cicd-gethub
-          sf sgd source delta --generate-delta --to "HEAD" --from "sf-1003-service-sla" --output delta-output
+          sf sgd source delta --generate-delta --to "HEAD" --from "HEAD~1" --output delta-output
         else
           sf sgd source delta --generate-delta --to "HEAD" --from "origin/sf-1003-service-sla"
         fi
