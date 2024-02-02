@@ -29,7 +29,7 @@ jobs:
         echo "CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`" >> $GITHUB_OUTPUT
         CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
         if [ $CURRENT_BRANCH = "master" ]; then
-          echo "Deploys from the master branch"
+          echo "Deploys from the branch: ${CURRENT_BRANCH} "
         else
           echo "Deploys from the current branch"
         fi
