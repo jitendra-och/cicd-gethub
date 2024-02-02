@@ -43,9 +43,9 @@ jobs:
 
     - name: Check if sfdx-git-delta plugin is installed
       run: |
-        if [ ! -d delta-output ]; then
+        if [ -d delta-output ]; then
           echo "Delta output will be stored in directory: delta-output"
-          git config --global --add safe.directory delta-output
+          git config --global --add safe.directory /__w/cicd-gethub/cicd-gethub
           sf sgd source delta --generate-delta --to "HEAD" --from "origin/sf-1003-service-sla" --output delta-output
         else
           sf sgd source delta --generate-delta --to "HEAD" --from "origin/sf-1003-service-sla"
