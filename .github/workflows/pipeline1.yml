@@ -4,13 +4,16 @@ on: push
 
 jobs:
   job1:
-    name: First job
+    name: build
     runs-on: ubuntu-latest
     container: salesforce/cli:latest-rc-slim
     steps:
     - name: Check out source code
       uses: actions/checkout@v2
 
+    - name: Install sgd plugin
+      run: sfdx plugins:install sfdx-git-delta
+      
     - name: Check if there is some destructive changes
       run: |
         if [ -f destructiveChanges/cpd/destructiveChangesPost.xml ]; then
