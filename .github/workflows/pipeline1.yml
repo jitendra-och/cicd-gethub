@@ -46,6 +46,7 @@ jobs:
         git config --global --add safe.directory /__w/cicd-gethub/cicd-gethub
         if [ -d delta-output ]; then
           echo "Delta output will be stored in directory: delta-output"
+          git --version
           sf sgd source delta --generate-delta --to "HEAD" --from "HEAD~1" --output delta-output
         else
           sf sgd source delta --generate-delta --to "HEAD" --from "HEAD~1"
