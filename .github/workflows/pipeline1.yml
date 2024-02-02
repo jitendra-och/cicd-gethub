@@ -11,6 +11,15 @@ jobs:
     - name: Check out source code
       uses: actions/checkout@v2
 
+    - name: Check if there is some destructive changes
+      run: |
+        echo ${SHELL}
+        if [ -f destructiveChanges/cpd/destructiveChangesPost.xml ]; then
+          echo Destructives changes file exists
+        else
+          echo Destructives changes file does NOT exist
+        fi
+
 #    - name: Configure devhub org
 #      run: |
 #        echo ${{ secrets.DEVHUB_SFDX_URL }} > ./SFDX_URL_STORE.txt
