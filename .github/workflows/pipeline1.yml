@@ -6,7 +6,7 @@ jobs:
   job1:
     name: First job
     runs-on: ubuntu-latest
-#    container: salesforce/cli:latest-rc-slim
+    container: salesforce/cli:latest-rc-slim
     steps:
     - name: Check out source code
       uses: actions/checkout@v2
@@ -37,6 +37,10 @@ jobs:
     - name: Check the current branch in the next step
       run: |
         echo "The current branch: ${{ steps.current-branch-id.outputs.CURRENT_BRANCH }}"
+
+    - name: Check if sfdx-git-delta plugin is installed
+      run: |
+        sfdx sgd:source:delta --to "HEAD" --from "HEAD^" --output .
 
 #    - name: Configure devhub org
 #      run: |
