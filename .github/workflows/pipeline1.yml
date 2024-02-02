@@ -25,14 +25,14 @@ jobs:
 
     - name: Check the current branch
       run: |
-        CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+        export CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
         if [ $CURRENT_BRANCH = "master" ]; then
           echo "Deploys from the master branch"
         else
           echo "Deploys from the current branch"
         fi
 
-    - name: Check the current branch
+    - name: Check the current branch in the next step
       run: |
         echo "the current branch: $CURRENT_BRANCH"
 
