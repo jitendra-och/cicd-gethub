@@ -14,8 +14,12 @@ jobs:
     - name: Check if there is some destructive changes
       run: |
         echo ${SHELL}
-        if [ -f destructiveChanges/cpd/destructiveChangesPost1.xml ]; then
+        if [ -f destructiveChanges/cpd/destructiveChangesPost.xml ]; then
           echo "Destructives changes file exists"
+          grep -q '<members>' destructiveChanges/cpd/destructiveChangesPost.xml; greprc=$?
+          if [ $greprc -eq 0 ]; then
+            echo "There are components to delete"
+          fi
         else
           echo "Destructives changes file does NOT exist"
         fi
