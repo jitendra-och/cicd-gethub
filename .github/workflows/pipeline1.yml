@@ -32,7 +32,9 @@ jobs:
           echo "Deploys from the current branch"
         fi
 
-
+    - name: Check the current branch
+      run: |
+        echo "the current branch: $CURRENT_BRANCH"
 
 #    - name: Configure devhub org
 #      run: |
