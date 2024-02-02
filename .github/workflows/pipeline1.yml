@@ -4,23 +4,64 @@ on: push
 
 jobs:
   job1:
-    name: First job
+    name: Build
     runs-on: ubuntu-latest
     container: salesforce/cli:latest-rc-slim
     steps:
     - name: Check out source code
       uses: actions/checkout@v2
 
-    - name: Configure devhub org
+    - name: Install sgd plugin
+      run: echo "y" | sf plugins install sfdx-git-delta
+      
+    - name: Check if there is some destructive changes
       run: |
-        echo ${{ secrets.DEVHUB_SFDX_URL }} > ./SFDX_URL_STORE.txt
-        sf org login sfdx-url -f ./SFDX_URL_STORE.txt -a devhub -d
+        if [ -f destructiveChanges/cpd/destructiveChangesPost.xml ]; then
+          echo "Destructives changes file exists"
+          grep -q '<members>' destructiveChanges/cpd/destructiveChangesPost.xml; greprc=$?
+          if [ $greprc -eq 0 ]; then
+            echo "There are components to delete"
+          fi
+        else
+          echo "Destructives changes file does NOT exist"
+        fi
 
-    - name: Creating a new scratch org ...
-      run: sf org create scratch -d -f config/project-scratch-def.json --duration-days 1 --alias sOrg31Jan24
+    # - name: Check the current branch
+    #   id: current-branch-id
+    #   run: |
+    #     echo "CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`" >> $GITHUB_OUTPUT
+    #     CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+    #     if [ $CURRENT_BRANCH = "master" ]; then
+    #       echo "Deploys from the branch: ${CURRENT_BRANCH} "
+    #     else
+    #       echo "Deploys from the current branch"
+    #     fi
 
-    - name: Deploying all source code to the scratch org
-      run: sf project deploy start -x manifest/package.xml --target-org sOrg31Jan24 --test-level RunAllTestsInOrg
+    # - name: Check the current branch in the next step
+    #   run: |
+    #     echo "The current branch: ${{ steps.current-branch-id.outputs.CURRENT_BRANCH }}"
 
-    - name: Deleting the scratch org
-      run: sf org delete scratch -o sOrg31Jan24 -p
+    - name: Check if sfdx-git-delta plugin is installed
+      run: |
+        git config --global --add safe.directory /__w/cicd-gethub/cicd-gethub
+        if [ -d delta-output ]; then
+          echo "Delta output will be stored in directory: delta-output"
+          sf sgd source delta --generate-delta --to "HEAD" --from "HEAD~1" --output delta-output
+        else
+          sf sgd source delta --generate-delta --to "HEAD" --from "HEAD~1"
+        fi
+        ls -R delta-output
+
+#    - name: Configure devhub org
+#      run: |
+#        echo ${{ secrets.DEVHUB_SFDX_URL }} > ./SFDX_URL_STORE.txt
+#        sf org login sfdx-url -f ./SFDX_URL_STORE.txt -a devhub -d
+
+#    - name: Creating a new scratch org ...
+#      run: sf org create scratch -d -f config/project-scratch-def.json --duration-days 1 --alias sOrg31Jan24
+
+#    - name: Deploying all source code to the scratch org
+#      run: sf project deploy start -x manifest/package.xml --target-org sOrg31Jan24 --test-level RunAllTestsInOrg
+
+#    - name: Deleting the scratch org
+#      run: sf org delete scratch -o sOrg31Jan24 -p

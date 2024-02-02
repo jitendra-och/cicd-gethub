@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     container: salesforce/cli:latest-rc-slim
     steps:
+      - name: Check out source code
+        uses: actions/checkout@v3
+
       - name: Starting deployment to SIT ...
         run: echo "Deployment process to SIT will be executed here."
 
@@ -22,6 +25,7 @@ jobs:
           SFDX_CLIENT_ID: ${{ secrets.SFDX_CLIENT_ID }}
         run: |
           echo "${SFDX_JWT_KEY}" > server.key
-          sf org login jwt --client-id "${SFDX_CLIENT_ID}" --jwt-key-file server.key --username jitendras@lwr.com --instance-url https://lwrcom-d-dev-ed.lightning.force.com --alias sitOrg
+          sf org login jwt --client-id "${SFDX_CLIENT_ID}" --jwt-key-file server.key --username jitendras@lwr.com --alias sitOrg --instance-url=https://login.salesforce.com
+          rm server.key
           sf project deploy start -x manifest/package.xml --target-org sitOrg
           echo Deployment completed successfully
