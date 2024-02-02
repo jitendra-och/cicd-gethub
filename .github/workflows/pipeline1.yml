@@ -24,8 +24,10 @@ jobs:
         fi
 
     - name: Check the current branch
+      id: current-branch-id
       run: |
-        export CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+        echo "CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`" >> $GITHUB_OUTPUT
+        CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
         if [ $CURRENT_BRANCH = "master" ]; then
           echo "Deploys from the master branch"
         else
@@ -34,7 +36,7 @@ jobs:
 
     - name: Check the current branch in the next step
       run: |
-        echo "the current branch: ${{ env.CURRENT_BRANCH }}"
+        echo "The current branch: ${{ steps.current-branch-id.outputs.CURRENT_BRANCH }}"
 
 #    - name: Configure devhub org
 #      run: |
