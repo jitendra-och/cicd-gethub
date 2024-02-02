@@ -13,7 +13,6 @@ jobs:
 
     - name: Check if there is some destructive changes
       run: |
-        echo ${SHELL}
         if [ -f destructiveChanges/cpd/destructiveChangesPost.xml ]; then
           echo "Destructives changes file exists"
           grep -q '<members>' destructiveChanges/cpd/destructiveChangesPost.xml; greprc=$?
@@ -23,6 +22,17 @@ jobs:
         else
           echo "Destructives changes file does NOT exist"
         fi
+
+    - name: Check the current branch
+      run: |
+        CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+        if [ $CURRENT_BRANCH = "master"]; then
+          echo "Deploys from the master branch"
+        else
+          echo "Deploys from the current branch"
+        fi
+
+
 
 #    - name: Configure devhub org
 #      run: |
