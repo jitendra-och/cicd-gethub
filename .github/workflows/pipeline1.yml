@@ -7,10 +7,16 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     container: salesforce/cli:latest-rc-slim
+
     steps:
     - name: Check out source code
       uses: actions/checkout@v2
 
+    steps:
+    - checkout: self
+      persistCredentials: true
+      fetchDepth: 0
+      
     - name: Install sgd plugin
       run: echo "y" | sf plugins install sfdx-git-delta
       
@@ -46,7 +52,6 @@ jobs:
         git config --global --add safe.directory /__w/cicd-gethub/cicd-gethub
         if [ -d delta-output ]; then
           echo "Delta output will be stored in directory: delta-output"
-          git --version
           sf sgd source delta --generate-delta --to "HEAD" --from "HEAD~1" --output delta-output
         else
           sf sgd source delta --generate-delta --to "HEAD" --from "HEAD~1"
