@@ -45,6 +45,7 @@ jobs:
       run: |
         if [ -d delta-output ]; then
           echo "Delta output will be stored in directory: delta-output"
+          git config --global --add safe.directory delta-output
           sf sgd source delta --generate-delta --to "HEAD" --from "origin/sf-1003-service-sla" --output delta-output
         else
           sf sgd source delta --generate-delta --to "HEAD" --from "origin/sf-1003-service-sla"
