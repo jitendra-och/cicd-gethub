@@ -1,5 +1,5 @@
 name: Pipeline implementation 
-run-name: Executed by ${{ github.actor }}
+# run-name: Executed by ${{ github.actor }}
 
 on: push
 
@@ -7,7 +7,7 @@ jobs:
   job1:
     name: Build
     runs-on: ubuntu-latest
-    container: salesforce/cli:latest-rc-slim
+  # container: salesforce/cli:latest-rc-slim
 
     steps:
     - name: Check out source code
@@ -18,6 +18,20 @@ jobs:
     - name: Check node version
       run: |
         node --version
+
+    - name: Display variables' values
+      run: |
+        echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+        echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+        echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+        echo "🖥️ The workflow is now ready to test your code on the runner."
+
+    - name: List files in the repository
+      run: |
+        ls ${{ github.workspace }}
+        echo "🍏 🍏 This job's status is ${{ job.status }}."
+
+
     # - name: Install sgd plugin
     #   run: echo "y" | sf plugins install sfdx-git-delta
       
