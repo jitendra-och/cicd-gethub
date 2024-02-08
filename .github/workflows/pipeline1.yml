@@ -14,20 +14,23 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Install sgd plugin
-      run: echo "y" | sf plugins install sfdx-git-delta
-      
-    - name: Check if there is some destructive changes
+    - name: Check node version
       run: |
-        if [ -f destructiveChanges/cpd/destructiveChangesPost.xml ]; then
-          echo "Destructives changes file exists"
-          grep -q '<members>' destructiveChanges/cpd/destructiveChangesPost.xml; greprc=$?
-          if [ $greprc -eq 0 ]; then
-            echo "There are components to delete"
-          fi
-        else
-          echo "Destructives changes file does NOT exist"
-        fi
+        node --version
+    # - name: Install sgd plugin
+    #   run: echo "y" | sf plugins install sfdx-git-delta
+      
+    # - name: Check if there is some destructive changes
+    #   run: |
+    #     if [ -f destructiveChanges/cpd/destructiveChangesPost.xml ]; then
+    #       echo "Destructives changes file exists"
+    #       grep -q '<members>' destructiveChanges/cpd/destructiveChangesPost.xml; greprc=$?
+    #       if [ $greprc -eq 0 ]; then
+    #         echo "There are components to delete"
+    #       fi
+    #     else
+    #       echo "Destructives changes file does NOT exist"
+    #     fi
 
     # - name: Check the current branch
     #   id: current-branch-id
@@ -44,16 +47,16 @@ jobs:
     #   run: |
     #     echo "The current branch: ${{ steps.current-branch-id.outputs.CURRENT_BRANCH }}"
 
-    - name: Check if sfdx-git-delta plugin is installed
-      run: |
-        git config --global --add safe.directory /__w/cicd-gethub/cicd-gethub
-        if [ -d delta-output ]; then
-          echo "Delta output will be stored in directory: delta-output"
-          sf sgd source delta --generate-delta --to "HEAD" --from "HEAD~1" --output delta-output
-        else
-          sf sgd source delta --generate-delta --to "HEAD" --from "HEAD~1"
-        fi
-        ls -R delta-output
+    # - name: Check if sfdx-git-delta plugin is installed
+    #   run: |
+    #     git config --global --add safe.directory /__w/cicd-gethub/cicd-gethub
+    #     if [ -d delta-output ]; then
+    #       echo "Delta output will be stored in directory: delta-output"
+    #       sf sgd source delta --generate-delta --to "HEAD" --from "HEAD~1" --output delta-output
+    #     else
+    #       sf sgd source delta --generate-delta --to "HEAD" --from "HEAD~1"
+    #     fi
+    #     ls -R delta-output
 
 #    - name: Configure devhub org
 #      run: |
