@@ -1,4 +1,5 @@
-name: Pipeline implementation by ${{ github.actor }}
+name: Pipeline implementation 
+run-name: Executed by ${{ github.actor }}
 
 on: push
 
