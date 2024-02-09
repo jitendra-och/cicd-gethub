@@ -1,8 +1,13 @@
 name: Pipeline implementation 
 # run-name: Executed by ${{ github.actor }}
 
-on: push
+on: 
+  push:
+    branches: [master2]
 
+env:
+  ORG: Development
+  
 jobs:
   job1:
     name: Build
@@ -19,17 +24,30 @@ jobs:
       run: |
         node --version
 
-    - name: Display variables' values
+    - name: Display environment variable value
       run: |
-        echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-        echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-        echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-        echo "🖥️ The workflow is now ready to test your code on the runner."
+        echo Org name (job1): $ORG
 
-    - name: List files in the repository
+  job2:
+    name: Deployment
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Job2 environment variable value
       run: |
-        ls ${{ github.workspace }}
-        echo "🍏 🍏 This job's status is ${{ job.status }}."
+        echo Org name (job2): $ORG
+
+    # - name: Display variables' values
+    #   run: |
+    #     echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+    #     echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+    #     echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+    #     echo "🖥️ The workflow is now ready to test your code on the runner."
+
+    # - name: List files in the repository
+    #   run: |
+    #     ls ${{ github.workspace }}
+    #     echo "🍏 This job's status is ${{ job.status }}."
 
 
     # - name: Install sgd plugin
