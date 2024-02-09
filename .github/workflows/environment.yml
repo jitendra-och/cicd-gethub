@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Display environment variable value
       run: |
-        echo Org name (job1): $ORG
+        echo "Org name (job1): '$ORG'"
 
   job2:
     name: Deployment
@@ -24,4 +24,4 @@ jobs:
     steps:
     - name: Job2 environment variable value
       run: |
-        echo Org name (job2): $ORG
+        echo "Org name (job2): '$ORG'"
