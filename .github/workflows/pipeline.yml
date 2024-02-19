@@ -12,7 +12,7 @@ jobs:
   job1:
     name: Build
     runs-on: ubuntu-latest
-  # container: salesforce/cli:latest-rc-slim
+    # container: salesforce/cli:latest-rc-slim
 
     steps:
     - name: Check out source code
@@ -53,17 +53,17 @@ jobs:
     # - name: Install sgd plugin
     #   run: echo "y" | sf plugins install sfdx-git-delta
       
-    # - name: Check if there is some destructive changes
-    #   run: |
-    #     if [ -f destructiveChanges/cpd/destructiveChangesPost.xml ]; then
-    #       echo "Destructives changes file exists"
-    #       grep -q '<members>' destructiveChanges/cpd/destructiveChangesPost.xml; greprc=$?
-    #       if [ $greprc -eq 0 ]; then
-    #         echo "There are components to delete"
-    #       fi
-    #     else
-    #       echo "Destructives changes file does NOT exist"
-    #     fi
+    - name: Check if there is some destructive changes
+      run: |
+        if [ -f destructive/destructiveChangesPre.xml ]; then
+          echo "Destructives changes file exists"
+          grep -q '<members>' destructive/destructiveChangesPre.xml; greprc=$?
+          if [ $greprc -eq 0 ]; then
+            echo "There are components to delete"
+          fi
+        else
+          echo "Destructives changes file does NOT exist"
+        fi
 
     # - name: Check the current branch
     #   id: current-branch-id
