@@ -3,7 +3,7 @@ name: Pipeline implementation
 
 on: 
   push:
-    branches: [master2]
+    branches: [ master ]
 
 env:
   ORG: Development
@@ -48,6 +48,7 @@ jobs:
         else
           echo "Destructives changes file does NOT exist"
         fi
+
     # - name: Display variables' values
     #   run: |
     #     echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"

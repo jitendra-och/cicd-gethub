@@ -2,7 +2,7 @@ name: Environment variables
 
 on: 
   push:
-    branches: [master]
+    branches: [ master2 ]
 
 env:
   ORG: Development
