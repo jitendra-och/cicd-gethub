@@ -44,6 +44,7 @@ jobs:
         echo "Org name (job2): $ORG"
 
     - name: Check if there is some destructive changes
+      shell: bash
       run: |
         if [ -f destructive/destructiveChangesPre.xml ]; then
           echo "Destructives changes file exists"
