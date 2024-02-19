@@ -34,16 +34,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Check out source code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
     - name: Job2 environment variable value
       run: |
         echo "Org name (job2): $ORG"
 
     - name: Check if there is some destructive changes
       run: |
-        if [[ -f destructive/destructiveChangesPre.xml ]]; then
+        if [ -f destructive/destructiveChangesPre.xml ]; then
           echo "Destructives changes file exists"
           grep -q '<members>' destructive/destructiveChangesPre.xml; greprc=$?
-          if [[ $greprc -eq 0 ]]; then
+          if [ $greprc -eq 0 ]; then
             echo "There are components to delete"
           fi
         else
