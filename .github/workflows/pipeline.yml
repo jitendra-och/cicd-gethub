@@ -29,6 +29,7 @@ jobs:
         echo "Org name (job1): $ORG"
 
   job2:
+    needs: job1
     name: Deployment
     runs-on: ubuntu-latest
 
@@ -39,10 +40,10 @@ jobs:
 
     - name: Check if there is some destructive changes
       run: |
-        if [ -f destructive/destructiveChangesPre.xml ]; then
+        if [[ -f destructive/destructiveChangesPre.xml ]]; then
           echo "Destructives changes file exists"
           grep -q '<members>' destructive/destructiveChangesPre.xml; greprc=$?
-          if [ $greprc -eq 0 ]; then
+          if [[ $greprc -eq 0 ]]; then
             echo "There are components to delete"
           fi
         else
