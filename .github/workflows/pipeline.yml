@@ -44,11 +44,12 @@ jobs:
         echo "Org name (job2): $ORG"
 
     - name: Check if there is some destructive changes
-      shell: bash
       run: |
+        set -x
         if [ -f destructive/destructiveChangesPre.xml ]; then
           echo "Destructives changes file exists"
           grep -q '<members>' destructive/destructiveChangesPre.xml; greprc=$?
+          echo "greprc: $greprc"
           if [ $greprc -eq 0 ]; then
             echo "There are components to delete"
           else
