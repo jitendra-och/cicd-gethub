@@ -45,7 +45,6 @@ jobs:
 
     - name: Check if there is some destructive changes
       run: |
-        set -x
         if [ -f destructive/destructiveChangesPre.xml ]; then
           echo "Destructives changes file exists"
           if [ $(grep -q '<members>' destructive/destructiveChangesPre.xml) -eq 0 ]; then
