@@ -38,7 +38,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        
+
     - name: Job2 environment variable value
       run: |
         echo "Org name (job2): $ORG"
@@ -50,6 +50,8 @@ jobs:
           grep -q '<members>' destructive/destructiveChangesPre.xml; greprc=$?
           if [ $greprc -eq 0 ]; then
             echo "There are components to delete"
+          else
+            echo "There are NO component to delete"
           fi
         else
           echo "Destructives changes file does NOT exist"
