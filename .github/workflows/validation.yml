@@ -50,7 +50,7 @@ jobs:
         sf org login sfdx-url -f ./VALIDATE_ORG_SFDX_AUTH_URL.txt --alias ValidationOrg
 
     - name: Validating all source code
-      run: sf project deploy start -x manifest/package.xml --target-org ValidationOrg --test-level RunLocalTests
+      run: sf project deploy start -x manifest/package.xml --target-org ValidationOrg --dry-run --test-level RunLocalTests
 
     # - name: Check if there is some destructive changes
     #   run: |
