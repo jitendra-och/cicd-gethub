@@ -1,5 +1,5 @@
 name: Pipeline implementation 
-# run-name: Executed by ${{ github.actor }}
+run-name: Executed by ${{ github.actor }}
 
 on: 
   push:
@@ -10,9 +10,9 @@ env:
   
 jobs:
   job1:
-    name: Build
+    name: Validate
     runs-on: ubuntu-latest
-    # container: salesforce/cli:latest-rc-slim
+    container: salesforce/cli:latest-rc-slim
 
     steps:
     - name: Check out source code
@@ -30,8 +30,9 @@ jobs:
 
   job2:
     needs: job1
-    name: Deployment
+    name: Validation
     runs-on: ubuntu-latest
+    container: salesforce/cli:latest-rc-slim
 
     steps:
     - name: Check out source code
@@ -43,18 +44,26 @@ jobs:
       run: |
         echo "Org name (job2): $ORG"
 
-    - name: Check if there is some destructive changes
+    - name: Login to validation org
       run: |
-        if [[ -f destructive/destructiveChangesPre.xml ]]; then
-          echo "Destructives changes file exists"
-          if [[ $(grep -q '<members>' destructive/destructiveChangesPre.xml) -eq 0 ]]; then
-            echo "There are components to delete"
-          else
-            echo "There are NO component to delete"
-          fi
-        else
-          echo "Destructives changes file does NOT exist"
-        fi
+        echo ${{ secrets.LWRORG_SFDX_AUTH_URL }} > ./SFDX_ULWRORG_SFDX_AUTH_URLRL_STORE.txt
+        sf org login sfdx-url -f ./LWRORG_SFDX_AUTH_URL.txt --alias ValidationOrg
+
+    - name: Validating all source code
+      run: sf project deploy start -x manifest/package.xml --target-org ValidationOrg --test-level RunAllTestsInOrg
+
+    # - name: Check if there is some destructive changes
+    #   run: |
+    #     if [[ -f destructive/destructiveChangesPre.xml ]]; then
+    #       echo "Destructives changes file exists"
+    #       if [[ $(grep -q '<members>' destructive/destructiveChangesPre.xml) -eq 0 ]]; then
+    #         echo "There are components to delete"
+    #       else
+    #         echo "There are NO component to delete"
+    #       fi
+    #     else
+    #       echo "Destructives changes file does NOT exist"
+    #     fi
 
     # - name: Display variables' values
     #   run: |
