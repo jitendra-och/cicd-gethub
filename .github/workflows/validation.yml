@@ -1,5 +1,5 @@
-name: Pipeline implementation 
-run-name: Executed by ${{ github.actor }}
+name: Validate changes 
+# run-name: Executed by ${{ github.actor }}
 
 on: 
   push:
@@ -46,7 +46,7 @@ jobs:
 
     - name: Login to validation org
       run: |
-        echo ${{ secrets.LWRORG_SFDX_AUTH_URL }} > ./VALIDATE_ORG_SFDX_AUTH_URL.txt
+        echo ${{ secrets.VALIDATE_ORG_SFDX_AUTH_URL }} > ./VALIDATE_ORG_SFDX_AUTH_URL.txt
         sf org login sfdx-url -f ./VALIDATE_ORG_SFDX_AUTH_URL.txt --alias ValidationOrg
 
     - name: Validating all source code
