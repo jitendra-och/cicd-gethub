@@ -10,7 +10,7 @@ env:
   
 jobs:
   job1:
-    name: Validate
+    name: Setting Environment
     runs-on: ubuntu-latest
     container: salesforce/cli:latest-rc-slim
 
@@ -46,7 +46,7 @@ jobs:
 
     - name: Login to validation org
       run: |
-        echo ${{ secrets.LWRORG_SFDX_AUTH_URL }} > ./SFDX_ULWRORG_SFDX_AUTH_URLRL_STORE.txt
+        echo ${{ secrets.LWRORG_SFDX_AUTH_URL }} > ./LWRORG_SFDX_AUTH_URL.txt
         sf org login sfdx-url -f ./LWRORG_SFDX_AUTH_URL.txt --alias ValidationOrg
 
     - name: Validating all source code
