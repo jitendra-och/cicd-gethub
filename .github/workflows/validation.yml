@@ -46,8 +46,8 @@ jobs:
 
     - name: Login to validation org
       run: |
-        echo ${{ secrets.LWRORG_SFDX_AUTH_URL }} > ./LWRORG_SFDX_AUTH_URL.txt
-        sf org login sfdx-url -f ./LWRORG_SFDX_AUTH_URL.txt --alias ValidationOrg
+        echo ${{ secrets.LWRORG_SFDX_AUTH_URL }} > ./VALIDATE_ORG_SFDX_AUTH_URL.txt
+        sf org login sfdx-url -f ./VALIDATE_ORG_SFDX_AUTH_URL.txt --alias ValidationOrg
 
     - name: Validating all source code
       run: sf project deploy start -x manifest/package.xml --target-org ValidationOrg --test-level RunLocalTests
