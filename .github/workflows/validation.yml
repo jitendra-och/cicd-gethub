@@ -1,8 +1,10 @@
 name: Validate changes 
 # run-name: Executed by ${{ github.actor }}
 
-on: push
-
+on: 
+  push:
+    branches-ignore:
+      - master
 env:
   ORG: Development
   
