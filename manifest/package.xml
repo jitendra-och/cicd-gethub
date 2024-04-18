@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
-		<members>Contact.Test1__c</members>
-		<name>CustomField</name>
+		<members>OpportunityController_AC</members>
+		<name>ApexClass</name>
 	</types>
 	<types>
-		<members>Admin</members>
-		<name>Profile</name>
+		<members>Opportunity_PaginationTable</members>
+		<name>AuraDefinitionBundle</name>
+	</types>
+	<types>
+		<members>HomeTest</members>
+		<name>FlexiPage</name>
 	</types>
 	<version>60.0</version>
 </Package>
